@@ -1,5 +1,17 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+      vivado_installer_archive_path: /tmp/installer.tar.gz
+  pre_tasks:
+      - name: "copy installer"
+        copy:
+            src: "{{ lookup('env', 'XILINX_VIVADO_INSTALLER_TARBALL') }}"
+            dest: "{{ vivado_installer_archive_path }}"
   roles:
-    - role: ansible-vivado
+      - role: ansible-vivado
+        vivado_version: 2017.3
+        vivado_edition: system
+        vivado_location: /home/vagrant/Xilinx
+        vivado_headless: true
+        vivado_source_bashrc: true

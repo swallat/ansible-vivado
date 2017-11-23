@@ -1,2 +1,5 @@
 ---
-# defaults file for ansible-vivado
+# defaults file for fpgaedu.vivado
+vivado_version: 2017.3
+vivado_edition: system
+vivado_headless: "False"

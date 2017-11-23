@@ -1,2 +1,4 @@
 ---
 # vars file for ansible-vivado
+
+vivado_install_location: "{{ vivado_location }}/{{ 'Vivado_Lab' if vivado_edition == 'lab' else 'Vivado' }}/{{ vivado_version }}"
