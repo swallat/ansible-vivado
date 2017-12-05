@@ -26,7 +26,7 @@
     - name: Locate xsetup executable
       find:
         paths:
-          - "{{ vivado_install_tmp_dir.path }}"
+          - "{{ lookup('env', 'XILINX_PSF_INSTALLER_PATH') }}"
         file_type: file
         patterns: "xsetup"
         recurse: "True"
@@ -37,7 +37,7 @@
     - name: Create Vivado installer configuration
       copy:
         src: "{{ role_path }}/files/vivado_{{ vivado_edition }}_install_config.txt"
-        dest: "{{ vivado_install_tmp_dir.path }}/vivado_install_config.txt"
+        dest: "{{ lookup('env', 'XILINX_PSF_INSTALLER_PATH') }}/vivado_install_config.txt"
       changed_when: "False"
       when: not vivado_existing_setup.stat.exists
 
@@ -46,7 +46,7 @@
         {{ vivado_find_xsetup.files[0].path }}
         --agree 3rdPartyEULA,WebTalkTerms,XilinxEULA
         --batch Install
-        --config {{ vivado_install_tmp_dir.path }}/vivado_install_config.txt
+        --config {{ lookup('env', 'XILINX_PSF_INSTALLER_PATH') }}/vivado_install_config.txt
         --location {{ vivado_location }}
       when: not vivado_existing_setup.stat.exists
 
@@ -86,10 +86,10 @@
         path: "~/.bashrc"
 
 
-  always:
-    - name: Clean up temporary files used during installation
-      file:
-        path: "{{ vivado_install_tmp_dir.path }}"
-        state: absent
-      changed_when: "False"
-      when: not vivado_existing_setup.stat.exists
+  # always:
+  #   - name: Clean up temporary files used during installation
+  #     file:
+  #       path: "{{ vivado_install_tmp_dir.path }}"
+  #       state: absent
+  #     changed_when: "False"
+  #     when: not vivado_existing_setup.stat.exists
