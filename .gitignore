@@ -6,6 +6,7 @@ roles/jnv.unattended-upgrades
 roles/tersmitten.fail2ban
 roles/ANXS.hostname
 roles/ANXS.apt
+molecule/default/.molecule/
 ._*
 bin/
 lib/
