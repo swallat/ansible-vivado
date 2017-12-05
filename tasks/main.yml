@@ -7,21 +7,21 @@
         path: "{{ vivado_install_location }}"
       register: vivado_existing_setup
 
-    - name: Create temporary directory for Vivado setup files
-      tempfile:
-        prefix: vivado_install
-        state: directory
-      changed_when: "False"
-      register: vivado_install_tmp_dir
-      when: not vivado_existing_setup.stat.exists
-
-    - name: Extract installer files
-      unarchive:
-        # src: "{{ vivado_installer_archive_path }}"
-        src: "{{ lookup('env', 'XILINX_VIVADO_INSTALLER_TARBALL') }}"
-        dest: "{{ vivado_install_tmp_dir.path }}"
-      changed_when: "False"
-      when: not vivado_existing_setup.stat.exists
+    # - name: Create temporary directory for Vivado setup files
+    #   tempfile:
+    #     prefix: vivado_install
+    #     state: directory
+    #   changed_when: "False"
+    #   register: vivado_install_tmp_dir
+    #   when: not vivado_existing_setup.stat.exists
+    #
+    # - name: Extract installer files
+    #   unarchive:
+    #     src: "{{ vivado_installer_archive_path }}"§
+    #     # src: "{{ lookup('env', 'XILINX_VIVADO_INSTALLER_TARBALL') }}"
+    #     dest: "{{ vivado_install_tmp_dir.path }}"
+    #   changed_when: "False"
+    #   when: not vivado_existing_setup.stat.exists
 
     - name: Locate xsetup executable
       find:
