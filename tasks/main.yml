@@ -20,7 +20,6 @@
         # src: "{{ vivado_installer_archive_path }}"
         src: "{{ lookup('env', 'XILINX_VIVADO_INSTALLER_TARBALL') }}"
         dest: "{{ vivado_install_tmp_dir.path }}"
-        remote_src: "True"
       changed_when: "False"
       when: not vivado_existing_setup.stat.exists
 
